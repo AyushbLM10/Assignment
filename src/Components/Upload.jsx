@@ -53,6 +53,14 @@ const Upload = ({ onBlockSelect, mode }) => {
       extractTags(request.result);
     };
   };
+  const handleUploadClick = () => {
+    if (uploadedFiles.length > 0) {
+      setUploadedFiles([]); // Clear the uploaded files
+    } else {
+      // Trigger file selection (you can implement this part to open a file selector)
+      console.log("File selection triggered");
+    }
+  };
 
   const extractTags = (files) => {
     const allTags = new Set();
@@ -137,7 +145,12 @@ const Upload = ({ onBlockSelect, mode }) => {
         <div className={`flex flex-col w-11/12 h-3/4 m-6 border-2 border-dashed rounded-lg items-center justify-center ${mode ? 'border-gray-300' : 'border-[#ffffff] border-opacity-10'}`}>
           <RiFileExcel2Fill color={mode ? '#43ce8d' : '#43ce8d'} size={36} />
           <p className={` font-semibold ${mode ? 'text-black' : 'text-white'}`}>
-            Drop your excel sheet here or <span className='text-[#605bff]'>browse</span>
+              {uploadedFiles.length > 0
+              ? <><button onClick={handleUploadClick}
+                  className='text-red-700 text-xl font-bold'>Remove
+                </button></>
+              : <>Drop your excel sheet here or <span className='text-[#605bff] cursor-pointer'>browse</span></>
+            }          
           </p>
           <input type="file" accept=".xls,.xlsx,.csv" className="hidden" id="file-upload" onChange={handleFileUpload} />
         </div>
@@ -146,9 +159,9 @@ const Upload = ({ onBlockSelect, mode }) => {
           Upload
         </label>
       </div>
-      <div className='mt-20 ml-4'>
+      <div className={`mt-20 ml-4 ${uploadedFiles.length===0?'hidden':'block'} `}>
         <h1 className={`text-2xl font-semibold mb-12 ${mode ? 'text-black' : 'text-white'}`}>Uploads</h1>
-        <div className={`w-[1065px] h-[419px] rounded-xl ${mode ? 'bg-[#f5f5f5]' : 'bg-black'}`}>
+        <div className={`w-[1065px] h-auto rounded-xl ${mode ? 'bg-[#f5f5f5]' : 'bg-black'}`}>
           <div className={` flex justify-start pt-5 pl-5 pr-5 ${mode ? 'text-black' : 'text-white'}`}>
             <span className=' w-32 ml-4'>Si No.</span>
             <span className=' w-64'>Links</span>
