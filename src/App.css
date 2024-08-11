@@ -1,0 +1,40 @@
+/* Style the scrollbar track */
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+    height: 10px; /* Height of the scrollbar (for horizontal scrollbar) */
+}
+
+/* Style the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners */
+    border: 2px solid transparent; /* Space around the thumb */
+    background-clip: padding-box; /* Make sure the border stays outside the thumb */
+}
+
+/* Style the scrollbar track */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color of the track */
+    border-radius: 10px; /* Rounded corners */
+}
+
+/* Style the scrollbar thumb when hovered */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color when hovered */
+}
+
+/* Style for the scrollbar corner (where horizontal and vertical scrollbars meet) */
+::-webkit-scrollbar-corner {
+    background-color: #f1f1f1; /* Same as the track background */
+}
+
+/* Custom scrollbar for Firefox */
+.scrollbar-style {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #888 #f1f1f1; /* Thumb color and track color */
+}
+
+/* Additional hover effects */
+.scrollbar-style:hover::-webkit-scrollbar-thumb {
+    background-color: #555; /* Darker thumb on hover */
+}
