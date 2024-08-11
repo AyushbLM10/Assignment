@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { RiFileExcel2Fill } from "react-icons/ri";
 import { MdOutlineFileUpload } from "react-icons/md";
@@ -10,6 +10,7 @@ const Upload = ({ onBlockSelect, mode }) => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [selectedTags, setSelectedTags] = useState({});
   const [tagsOptions, setTagsOptions] = useState([]);
+  const [fileInputKey, setFileInputKey] = useState(Date.now()); // Unique key for file input
 
   const initDB = () => {
     return new Promise((resolve, reject) => {
@@ -53,11 +54,12 @@ const Upload = ({ onBlockSelect, mode }) => {
       extractTags(request.result);
     };
   };
+
   const handleUploadClick = () => {
     if (uploadedFiles.length > 0) {
       setUploadedFiles([]); // Clear the uploaded files
+      setFileInputKey(Date.now()); // Reset the file input by changing the key
     } else {
-      // Trigger file selection (you can implement this part to open a file selector)
       console.log("File selection triggered");
     }
   };
@@ -145,21 +147,28 @@ const Upload = ({ onBlockSelect, mode }) => {
         <div className={`flex flex-col w-11/12 h-3/4 m-6 border-2 border-dashed rounded-lg items-center justify-center ${mode ? 'border-gray-300' : 'border-[#ffffff] border-opacity-10'}`}>
           <RiFileExcel2Fill color={mode ? '#43ce8d' : '#43ce8d'} size={36} />
           <p className={` font-semibold ${mode ? 'text-black' : 'text-white'}`}>
-              {uploadedFiles.length > 0
+            {uploadedFiles.length > 0
               ? <><button onClick={handleUploadClick}
-                  className='text-red-700 text-xl font-bold'>Remove
-                </button></>
+                className='text-red-700 text-xl font-bold'>Remove
+              </button></>
               : <>Drop your excel sheet here or <span className='text-[#605bff] cursor-pointer'>browse</span></>
-            }          
+            }
           </p>
-          <input type="file" accept=".xls,.xlsx,.csv" className="hidden" id="file-upload" onChange={handleFileUpload} />
+          <input
+            type="file"
+            key={fileInputKey} // Dynamically change key to reset input
+            accept=".xls,.xlsx,.csv"
+            className="hidden"
+            id="file-upload"
+            onChange={handleFileUpload}
+          />
         </div>
         <label htmlFor="file-upload" className={`bg-[#605bff] ml-6 mr-6 mb-6 font-semibold text-center py-2 px-4 rounded-lg cursor-pointer hover:bg-blue-600 flex justify-center ${mode ? 'text-white' : 'text-black'}`}>
           <MdOutlineFileUpload size={24} className='mr-4' />
           Upload
         </label>
       </div>
-      <div className={`mt-20 ml-4 ${uploadedFiles.length===0?'hidden':'block'} `}>
+      <div className={`mt-20 ml-4 ${uploadedFiles.length === 0 ? 'hidden' : 'block'} `}>
         <h1 className={`text-2xl font-semibold mb-12 ${mode ? 'text-black' : 'text-white'}`}>Uploads</h1>
         <div className={`w-[1065px] h-auto rounded-xl ${mode ? 'bg-[#f5f5f5]' : 'bg-black'}`}>
           <div className={` flex justify-start pt-5 pl-5 pr-5 ${mode ? 'text-black' : 'text-white'}`}>
@@ -196,10 +205,10 @@ const Upload = ({ onBlockSelect, mode }) => {
                     </div>
                     <div className='text-white w-auto flex flex-wrap'>
                       {selectedTags[`${fileIndex}-${rowIndex}`]?.map((tag, tagIndex) => (
-                        <div key={tagIndex} className={`bg-[#605bff]  px-2 py-1 rounded-md mr-2 mb-2 flex items-center ${mode ? 'text-white':'text-black'} `}>
+                        <div key={tagIndex} className={`bg-[#605bff]  px-2 py-1 rounded-md mr-2 mb-2 flex items-center ${mode ? 'text-white' : 'text-black'} `}>
                           <span>{tag}</span>
                           <button
-                            className={`ml-2 text-black ${mode ? 'text-white': 'text-black'}`}
+                            className={`ml-2 text-black ${mode ? 'text-white' : 'text-black'}`}
                             onClick={() => removeTag(fileIndex, rowIndex, tag)}
                           >
                             &times;
