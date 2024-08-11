@@ -5,11 +5,13 @@ import { AiOutlineSun } from "react-icons/ai";
 import { IoMoonOutline } from "react-icons/io5";
 import { ToastContainer, toast } from 'react-toastify'; // Import Toast components
 import 'react-toastify/dist/ReactToastify.css'; // Import CSS for Toastify
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const Login = () => {
   const [mode, setMode] = useState(false); // Light mode is false by default
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate(); // Initialize navigate
 
   function handleInputErrors() {
     // Check if fields are filled
@@ -31,8 +33,9 @@ const Login = () => {
       return false;
     }
 
-    // If all checks pass, show success message
+    // If all checks pass, show success message and navigate to home page
     toast.success("Successfully signed in!"); // Example success message
+    navigate('/'); // Navigate to home page
     return true;
   }
 
