@@ -47,7 +47,7 @@ const Home = () => {
   };
 
   return (
-    <div className='flex h-auto'>
+    <div className='flex h-auto bg-black'>
       {/* Sidebar visibility based on 'block' */}
       <div className={`${block ? 'block' : 'hidden'} sm:block w-full sm:w-1/5`}>
         <Sidebar onItemSelect={handleItemClick} onBlockSelect={handleBlock} mode={mode} toggleMode={toggleMode} />
