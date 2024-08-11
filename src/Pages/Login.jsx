@@ -35,7 +35,7 @@ const Login = () => {
 
     // If all checks pass, show success message and navigate to home page
     toast.success("Successfully signed in!"); // Example success message
-    navigate('/'); // Navigate to home page
+    navigate('/home'); // Navigate to home page
     return true;
   }
 

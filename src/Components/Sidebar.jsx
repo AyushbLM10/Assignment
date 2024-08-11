@@ -25,7 +25,7 @@ const Sidebar = ({onItemSelect, onBlockSelect, toggleMode}) => {
         <button className={` mr-10 sm:hidden ${mode ? 'text-black': 'text-white'} `} onClick={()=>{onBlockSelect(false)}}>
           <h1 className='text-3xl'>&times;</h1>
         </button>
-        <Link to = '/login'><RiLogoutBoxRLine color='gray' size={32} className='cursor-pointer hidden sm:block'/></Link>
+        <Link to = '/'><RiLogoutBoxRLine color='gray' size={32} className='cursor-pointer hidden sm:block'/></Link>
       </div>
       <div className={`flex flex-col mt-8 ${mode ? 'text-black' : 'text-white'}`}>
         <ul className='text-gray-400 w-full space-y-3'>
