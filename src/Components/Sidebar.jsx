@@ -7,6 +7,7 @@ import { SlGraph } from "react-icons/sl";
 import { IoIosNotifications, IoMdSettings } from "react-icons/io";
 import { AiOutlineSun } from 'react-icons/ai';
 import { IoMoonOutline } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 
 const Sidebar = ({onItemSelect, onBlockSelect, toggleMode}) => {
   const [state,setState] = useState("");
@@ -24,7 +25,7 @@ const Sidebar = ({onItemSelect, onBlockSelect, toggleMode}) => {
         <button className={` mr-10 sm:hidden ${mode ? 'text-black': 'text-white'} `} onClick={()=>{onBlockSelect(false)}}>
           <h1 className='text-3xl'>&times;</h1>
         </button>
-        <RiLogoutBoxRLine color='gray' size={32} className='cursor-pointer hidden sm:block'/>
+        <Link to = '/login'><RiLogoutBoxRLine color='gray' size={32} className='cursor-pointer hidden sm:block'/></Link>
       </div>
       <div className={`flex flex-col mt-8 ${mode ? 'text-black' : 'text-white'}`}>
         <ul className='text-gray-400 w-full space-y-3'>
